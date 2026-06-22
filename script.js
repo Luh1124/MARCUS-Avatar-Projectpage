@@ -20,6 +20,24 @@ const activeVariants = {
   asset: "full",
 };
 
+function markViewerLoading(viewer) {
+  if (!viewer) return;
+  viewer.dataset.loadState = "loading";
+}
+
+function markViewerLoaded(viewer) {
+  if (!viewer) return;
+  viewer.dataset.loadState = "loaded";
+  if (typeof viewer.dismissPoster === "function") {
+    viewer.dismissPoster();
+  }
+}
+
+function markViewerError(viewer) {
+  if (!viewer) return;
+  viewer.dataset.loadState = "error";
+}
+
 function modelPath(item, variant) {
   return `${item.root}/${variantFiles[variant]}`;
 }
@@ -30,6 +48,7 @@ function setModel(target, caseIndex = activeCaseIndex) {
   const viewer = document.querySelector(target === "hero" ? "#heroModel" : "#assetModel");
   if (!viewer || !item) return;
 
+  markViewerLoading(viewer);
   viewer.setAttribute("src", modelPath(item, variant));
   viewer.setAttribute("poster", `${item.root}/input.jpg`);
 }
@@ -75,6 +94,12 @@ document.querySelectorAll(".asset-button").forEach((button) => {
 document.querySelectorAll(".variant-button").forEach((button) => {
   button.setAttribute("aria-pressed", button.classList.contains("is-active") ? "true" : "false");
   button.addEventListener("click", () => setVariant(button.dataset.target, button.dataset.variant));
+});
+
+document.querySelectorAll("model-viewer").forEach((viewer) => {
+  markViewerLoading(viewer);
+  viewer.addEventListener("load", () => markViewerLoaded(viewer));
+  viewer.addEventListener("error", () => markViewerError(viewer));
 });
 
 const reveals = document.querySelectorAll(".reveal");

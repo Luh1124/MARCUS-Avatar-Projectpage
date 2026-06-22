@@ -17,7 +17,16 @@
     <script>
       document.documentElement.classList.add("js");
     </script>
-    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <script type="module" src="assets/vendor/model-viewer.min.js"></script>
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        window.setTimeout(() => {
+          if (!customElements.get("model-viewer")) {
+            document.documentElement.classList.add("model-viewer-failed");
+          }
+        }, 1500);
+      });
+    </script>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -45,7 +54,7 @@
           </p>
           <div class="action-row" aria-label="Project links">
             <a class="action primary" href="#">Paper</a>
-            <a class="action" href="#">Code</a>
+            <a class="action" href="https://github.com/Luh1124/MARCUS-Avatar">Code</a>
             <a class="action" href="#">HF Weights</a>
             <a class="action" href="#">HF Demo</a>
             <a class="action" href="#">arXiv</a>
@@ -74,6 +83,8 @@
             poster="assets/supplement/models/model-03/input.jpg"
             camera-controls
             auto-rotate
+            loading="eager"
+            reveal="auto"
             rotation-per-second="18deg"
             shadow-intensity="0.7"
             exposure="0.95"
@@ -82,6 +93,7 @@
           >
             <img class="model-fallback" src="assets/supplement/models/model-03/input.jpg" alt="Input portrait for model 03" />
           </model-viewer>
+          <p class="viewer-warning">3D viewer or model failed to load. Please check WebGL support and GLB access.</p>
           <div class="mode-toggle" aria-label="Hero model display mode">
             <button class="variant-button is-active" data-target="hero" data-variant="full" type="button">Full material</button>
             <button class="variant-button" data-target="hero" data-variant="geometry" type="button">Gray geometry</button>
@@ -168,6 +180,8 @@
               poster="assets/supplement/models/model-03/input.jpg"
               camera-controls
               auto-rotate
+              loading="eager"
+              reveal="auto"
               rotation-per-second="14deg"
               shadow-intensity="0.7"
               exposure="0.95"
@@ -176,6 +190,7 @@
             >
               <img id="assetFallback" class="model-fallback" src="assets/supplement/models/model-03/input.jpg" alt="Selected input portrait" />
             </model-viewer>
+            <p class="viewer-warning">3D viewer or model failed to load. Please check WebGL support and GLB access.</p>
             <div class="mode-toggle" aria-label="Selected model display mode">
               <button class="variant-button is-active" data-target="asset" data-variant="full" type="button">Full material</button>
               <button class="variant-button" data-target="asset" data-variant="geometry" type="button">Gray geometry</button>
@@ -233,7 +248,7 @@
         </div>
         <div class="resource-grid">
           <a href="#">Paper</a>
-          <a href="#">GitHub Code</a>
+          <a href="https://github.com/Luh1124/MARCUS-Avatar">GitHub Code</a>
           <a href="#">HuggingFace Weights</a>
           <a href="#">HuggingFace Demo</a>
           <a href="#">arXiv</a>
