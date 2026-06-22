@@ -706,8 +706,8 @@ figcaption {
   padding: 1.25rem;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #101719;
-  color: #e8f3ee;
+  background: var(--surface);
+  color: var(--deep);
   font-size: 0.87rem;
   line-height: 1.55;
 }
