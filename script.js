@@ -20,30 +20,25 @@ const activeVariants = {
   asset: "full",
 };
 
-function markViewerLoading(viewer) {
+function setViewerState(viewer, state) {
   if (!viewer) return;
-  viewer.dataset.loadState = "loading";
+  viewer.dataset.loadState = state;
+}
+
+function markViewerLoading(viewer) {
+  setViewerState(viewer, "loading");
 }
 
 function markViewerLoaded(viewer) {
-  if (!viewer) return;
-  viewer.dataset.loadState = "loaded";
-  if (typeof viewer.dismissPoster === "function") {
-    viewer.dismissPoster();
-  }
+  setViewerState(viewer, "loaded");
 }
 
 function markViewerError(viewer) {
-  if (!viewer) return;
-  viewer.dataset.loadState = "error";
+  setViewerState(viewer, "error");
 }
 
 function modelPath(item, variant) {
   return `${item.root}/${variantFiles[variant]}`;
-}
-
-function previewPath(item) {
-  return `${item.root}/render.png`;
 }
 
 function setModel(target, caseIndex = activeCaseIndex) {
@@ -54,7 +49,6 @@ function setModel(target, caseIndex = activeCaseIndex) {
 
   markViewerLoading(viewer);
   viewer.setAttribute("src", modelPath(item, variant));
-  viewer.setAttribute("poster", previewPath(item));
 }
 
 function setCase(index) {
@@ -64,10 +58,8 @@ function setCase(index) {
 
   setModel("asset", index);
 
-  const fallback = document.querySelector("#assetFallback");
   const input = document.querySelector("#assetInput");
   const caption = document.querySelector("#assetCaption");
-  if (fallback) fallback.src = previewPath(item);
   if (input) input.src = `${item.root}/input.jpg`;
   if (caption) caption.textContent = `Input image for ${item.label}`;
 

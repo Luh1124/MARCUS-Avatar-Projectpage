@@ -239,13 +239,6 @@ p {
   overflow: hidden;
 }
 
-.model-fallback {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  background: #edf3f0;
-}
-
 .viewer-warning {
   display: none;
   margin: -0.25rem 0 0;

@@ -48,12 +48,6 @@
         background: #edf3f0;
       }
 
-      model-viewer img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-      }
-
       .panel {
         display: grid;
         gap: 16px;
@@ -162,19 +156,15 @@
         <model-viewer
           id="viewer"
           src="assets/supplement/models/model-03/full.glb"
-          poster="assets/supplement/models/model-03/render.png"
           camera-controls
-          auto-rotate
           loading="eager"
           reveal="auto"
           exposure="0.95"
           shadow-intensity="0.7"
-          camera-orbit="0deg 74deg 1.9m"
-          field-of-view="24deg"
+          camera-orbit="0deg 80deg 6m"
+          field-of-view="28deg"
           alt="MARCUS-Avatar debug GLB"
-        >
-          <img src="assets/supplement/models/model-03/render.png" alt="Rendered 3D fallback preview" />
-        </model-viewer>
+        ></model-viewer>
       </section>
 
       <aside class="panel">
@@ -230,19 +220,6 @@
         }
       }
 
-      function testImage(url) {
-        const image = new Image();
-        image.onload = () => {
-          setCheck("poster image", true, `${image.naturalWidth} x ${image.naturalHeight}`);
-          write(`poster image loaded: ${image.naturalWidth} x ${image.naturalHeight}`);
-        };
-        image.onerror = () => {
-          setCheck("poster image", false, url);
-          write(`poster image failed: ${url}`, "error");
-        };
-        image.src = url;
-      }
-
       write(`page protocol: ${location.protocol}`);
       if (location.protocol === "file:") {
         write("file:// detected. This can block ES modules and GLB fetches; use a local HTTP server.", "warn");
@@ -267,10 +244,12 @@
       }, 2000);
 
       viewer.addEventListener("load", () => {
+        viewer.dataset.loadState = "loaded";
         setCheck("viewer load event", true, viewer.src);
         write(`viewer load event: ${viewer.getAttribute("src")}`);
       });
       viewer.addEventListener("error", (event) => {
+        viewer.dataset.loadState = "error";
         setCheck("viewer load event", false, viewer.src);
         write(`viewer error event: ${event.detail?.message || "no detail"}`, "error");
       });
@@ -285,13 +264,13 @@
         button.addEventListener("click", () => {
           document.querySelectorAll("button[data-src]").forEach((item) => item.classList.remove("active"));
           button.classList.add("active");
+          viewer.dataset.loadState = "loading";
           viewer.setAttribute("src", button.dataset.src);
           testFetch("active GLB fetch", button.dataset.src);
           write(`src switched to ${button.dataset.src}`);
         });
       });
 
-      testImage("assets/supplement/models/model-03/render.png");
       testFetch("model-viewer script", "assets/vendor/model-viewer.min.js");
       testFetch("active GLB fetch", viewer.getAttribute("src"));
     </script>
