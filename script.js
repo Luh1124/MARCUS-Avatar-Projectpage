@@ -15,6 +15,12 @@ const variantFiles = {
   geometry: "geometry_gray.glb",
 };
 
+const coverCases = [
+  { label: "Case 01", root: "assets/cover/21220" },
+  { label: "Case 02", root: "assets/cover/zakeboge" },
+  { label: "Case 03", root: "assets/cover/res_1768932471" },
+];
+
 let activeCaseIndex = 0;
 const activeVariants = {
   hero: "full",
@@ -102,6 +108,10 @@ document.querySelectorAll("model-viewer").forEach((viewer) => {
 document.querySelectorAll("[data-tri-compare]").forEach((compare) => {
   const frame = compare.querySelector(".compare-frame");
   const handle = compare.querySelector(".compare-handle");
+  const inputLayer = compare.querySelector(".compare-input");
+  const geometryLayer = compare.querySelector(".compare-geometry");
+  const renderLayer = compare.querySelector(".compare-render");
+  const caseButtons = compare.querySelectorAll("[data-cover-case]");
   if (!frame || !handle) return;
 
   const state = {
@@ -152,10 +162,32 @@ document.querySelectorAll("[data-tri-compare]").forEach((compare) => {
     setSplit(nextX, nextY);
   };
 
+  const setCoverCase = (index) => {
+    const item = coverCases[index];
+    if (!item || !inputLayer || !geometryLayer || !renderLayer) return;
+
+    inputLayer.src = `${item.root}/hr_align_img.png`;
+    geometryLayer.src = `${item.root}/geo.png`;
+    renderLayer.src = `${item.root}/r00.png`;
+    inputLayer.alt = `${item.label} aligned input portrait`;
+    geometryLayer.alt = `${item.label} recovered geometry`;
+    renderLayer.alt = `${item.label} relit material render`;
+
+    caseButtons.forEach((button) => {
+      const isActive = Number(button.dataset.coverCase) === index;
+      button.classList.toggle("is-active", isActive);
+      button.setAttribute("aria-pressed", String(isActive));
+    });
+  };
+
   frame.addEventListener("pointerdown", startDrag);
   handle.addEventListener("keydown", keyboardAdjust);
+  caseButtons.forEach((button) => {
+    button.addEventListener("click", () => setCoverCase(Number(button.dataset.coverCase)));
+  });
 
   setSplit(state.x, state.y);
+  setCoverCase(0);
 });
 
 const reveals = document.querySelectorAll(".reveal");
