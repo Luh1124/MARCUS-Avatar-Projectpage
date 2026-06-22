@@ -1,59 +1,80 @@
 const cases = [
-  {
-    name: "Case 01",
-    root: "assets/cases/case-01",
-  },
-  {
-    name: "Case 02",
-    root: "assets/cases/case-02",
-  },
-  {
-    name: "Case 03",
-    root: "assets/cases/case-03",
-  },
+  { label: "Model 03", root: "assets/supplement/models/model-03" },
+  { label: "Model 04", root: "assets/supplement/models/model-04" },
+  { label: "Model 07", root: "assets/supplement/models/model-07" },
+  { label: "Model 09", root: "assets/supplement/models/model-09" },
+  { label: "Model 10", root: "assets/supplement/models/model-10" },
+  { label: "Model 13", root: "assets/supplement/models/model-13" },
+  { label: "Model 16", root: "assets/supplement/models/model-16" },
+  { label: "Model 18", root: "assets/supplement/models/model-18" },
 ];
 
-const imageSlots = {
-  inputImage: "input.jpg",
-  delightImage: "delight.png",
-  mapAlbedo: "albedo.png",
-  mapNormal: "normal.png",
-  mapRoughness: "roughness.png",
-  mapSpecular: "specular.png",
-  mapDisplacement: "displacement.png",
+const variantFiles = {
+  full: "full.glb",
+  geometry: "geometry_gray.glb",
 };
 
+let activeCaseIndex = 0;
+const activeVariants = {
+  hero: "full",
+  asset: "full",
+};
+
+function modelPath(item, variant) {
+  return `${item.root}/${variantFiles[variant]}`;
+}
+
+function setModel(target, caseIndex = activeCaseIndex) {
+  const item = cases[caseIndex];
+  const variant = activeVariants[target] || "full";
+  const viewer = document.querySelector(target === "hero" ? "#heroModel" : "#assetModel");
+  if (!viewer || !item) return;
+
+  viewer.setAttribute("src", modelPath(item, variant));
+  viewer.setAttribute("poster", `${item.root}/input.jpg`);
+}
+
 function setCase(index) {
-  const selected = cases[index];
-  if (!selected) return;
+  const item = cases[index];
+  if (!item) return;
+  activeCaseIndex = index;
 
-  const model = document.querySelector("#resultModel");
-  const fallback = document.querySelector("#modelFallback");
-  if (model) {
-    model.setAttribute("src", `${selected.root}/model.glb`);
-    model.setAttribute("poster", `${selected.root}/input.jpg`);
-  }
-  if (fallback) {
-    fallback.src = `${selected.root}/input.jpg`;
-  }
+  setModel("asset", index);
 
-  Object.entries(imageSlots).forEach(([id, file]) => {
-    const img = document.querySelector(`#${id}`);
-    if (img) {
-      img.src = `${selected.root}/${file}`;
-    }
-  });
+  const fallback = document.querySelector("#assetFallback");
+  const input = document.querySelector("#assetInput");
+  const caption = document.querySelector("#assetCaption");
+  if (fallback) fallback.src = `${item.root}/input.jpg`;
+  if (input) input.src = `${item.root}/input.jpg`;
+  if (caption) caption.textContent = `Input image for ${item.label}`;
 
-  document.querySelectorAll(".case-button").forEach((button) => {
+  document.querySelectorAll(".asset-button").forEach((button) => {
     const isActive = Number(button.dataset.case) === index;
     button.classList.toggle("is-active", isActive);
     button.setAttribute("aria-pressed", String(isActive));
   });
 }
 
-document.querySelectorAll(".case-button").forEach((button) => {
+function setVariant(target, variant) {
+  if (!variantFiles[variant]) return;
+  activeVariants[target] = variant;
+  setModel(target);
+
+  document.querySelectorAll(`.variant-button[data-target="${target}"]`).forEach((button) => {
+    const isActive = button.dataset.variant === variant;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
+  });
+}
+
+document.querySelectorAll(".asset-button").forEach((button) => {
   button.setAttribute("aria-pressed", button.classList.contains("is-active") ? "true" : "false");
   button.addEventListener("click", () => setCase(Number(button.dataset.case)));
+});
+
+document.querySelectorAll(".variant-button").forEach((button) => {
+  button.setAttribute("aria-pressed", button.classList.contains("is-active") ? "true" : "false");
+  button.addEventListener("click", () => setVariant(button.dataset.target, button.dataset.variant));
 });
 
 const reveals = document.querySelectorAll(".reveal");

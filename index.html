@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="MARCUS-Avatar reconstructs relightable 3D avatars with PBR intrinsic materials from a single in-the-wild image."
+      content="Official project page for MARCUS-Avatar, a monocular avatar reconstruction method with cascaded diffusion priors and UV-space differentiable shading."
     />
     <title>MARCUS-Avatar</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -27,9 +27,9 @@
         <span>MARCUS-Avatar</span>
       </a>
       <nav class="nav-links" aria-label="Sections">
+        <a href="#assets">3D Assets</a>
         <a href="#method">Method</a>
-        <a href="#results">Results</a>
-        <a href="#materials">Materials</a>
+        <a href="#figures">Figures</a>
         <a href="#citation">Citation</a>
       </nav>
     </header>
@@ -40,8 +40,8 @@
           <p class="eyebrow">ECCV 2026</p>
           <h1>Monocular Avatar Reconstruction via Cascaded Diffusion Priors and UV-Space Differentiable Shading</h1>
           <p class="hero-lede">
-            MARCUS-Avatar reconstructs high-fidelity, relightable 3D avatars from a single in-the-wild image,
-            producing UV-space PBR intrinsic materials for modern rendering workflows.
+            MARCUS-Avatar turns a single portrait into a relightable 3D avatar with render-ready geometry and
+            physically meaningful intrinsic materials.
           </p>
           <div class="action-row" aria-label="Project links">
             <a class="action primary" href="#">Paper</a>
@@ -57,35 +57,34 @@
             </div>
             <div>
               <dt>Output</dt>
-              <dd>Relightable 3D avatar</dd>
+              <dd>Interactive GLB avatar</dd>
             </div>
             <div>
-              <dt>Materials</dt>
-              <dd>Albedo, normal, roughness, specular, displacement</dd>
+              <dt>Views</dt>
+              <dd>Full material and gray geometry</dd>
             </div>
           </dl>
         </div>
 
         <div class="hero-stage reveal" aria-label="Interactive avatar preview">
           <model-viewer
+            id="heroModel"
             class="hero-model"
-            src="assets/cases/case-01/model.glb"
-            poster="assets/cases/case-01/input.jpg"
+            src="assets/supplement/models/model-03/full.glb"
+            poster="assets/supplement/models/model-03/input.jpg"
             camera-controls
             auto-rotate
             rotation-per-second="18deg"
-            shadow-intensity="0.65"
+            shadow-intensity="0.7"
             exposure="0.95"
             camera-orbit="0deg 74deg 1.9m"
-            alt="Interactive 3D avatar reconstructed by MARCUS-Avatar"
+            alt="Interactive MARCUS-Avatar supplement model"
           >
-            <img class="model-fallback" src="assets/cases/case-01/input.jpg" alt="Avatar reconstruction preview" />
+            <img class="model-fallback" src="assets/supplement/models/model-03/input.jpg" alt="Input portrait for model 03" />
           </model-viewer>
-          <div class="hero-strip" aria-label="Material preview">
-            <img src="assets/cases/case-01/albedo.png" alt="Albedo map" />
-            <img src="assets/cases/case-01/normal.png" alt="Normal map" />
-            <img src="assets/cases/case-01/roughness.png" alt="Roughness map" />
-            <img src="assets/cases/case-01/specular.png" alt="Specular map" />
+          <div class="mode-toggle" aria-label="Hero model display mode">
+            <button class="variant-button is-active" data-target="hero" data-variant="full" type="button">Full material</button>
+            <button class="variant-button" data-target="hero" data-variant="geometry" type="button">Gray geometry</button>
           </div>
         </div>
       </section>
@@ -93,149 +92,144 @@
       <section class="intro-grid section-band reveal" aria-label="Method highlights">
         <article>
           <span class="kicker">01</span>
-          <h2>From casual portrait to aligned UV space</h2>
+          <h2>Supplement assets, not screenshots</h2>
           <p>
-            The pipeline first stabilizes geometry and UV correspondence, turning an unconstrained monocular image
-            into a texture canvas suitable for high-frequency material synthesis.
+            The gallery below visualizes GLB exports converted directly from the supplementary Blender files.
           </p>
         </article>
         <article>
           <span class="kicker">02</span>
-          <h2>Cascaded diffusion priors</h2>
+          <h2>Two complementary model views</h2>
           <p>
-            Lightweight LoRA adapters specialize a shared generative backbone for texture completion, light
-            homogenization, and intrinsic material decomposition.
+            Full material mode preserves the exported PBR-style appearance, while gray geometry mode removes albedo
+            color to reveal surface detail.
           </p>
         </article>
         <article>
           <span class="kicker">03</span>
-          <h2>UV-space differentiable shading</h2>
+          <h2>Scripted and reproducible</h2>
           <p>
-            A physically grounded shading objective keeps the generated maps coherent across albedo, normal,
-            roughness, specular, and displacement.
+            A Blender batch script in this repository regenerates these web assets from the original supplement folder.
           </p>
         </article>
       </section>
 
-      <section class="media-section section-band reveal" id="method">
-        <div class="section-heading">
-          <p class="eyebrow">Pipeline</p>
-          <h2>A compact route to relightable PBR avatars</h2>
+      <section class="asset-section section-band reveal" id="assets">
+        <div class="section-heading compact">
+          <p class="eyebrow">Supplementary 3D Assets</p>
+          <h2>Browse exported avatars from the Blender supplement</h2>
           <p>
-            MARCUS-Avatar avoids fragmented per-task models by cascading diffusion priors in UV space, then tying
-            material predictions together through differentiable shading constraints.
+            Each example is exported from <code>supp/exported_blender_files_1K/modelN.blend</code> with its matching
+            input image. Switch between the full material view and a gray geometry view for detail inspection.
           </p>
         </div>
-        <figure class="wide-figure">
-          <img src="assets/figures/pipeline.jpg" alt="MARCUS-Avatar reconstruction pipeline" />
-        </figure>
-      </section>
 
-      <section class="results section-band reveal" id="results">
-        <div class="section-heading compact">
-          <p class="eyebrow">Interactive Results</p>
-          <h2>Single-image reconstruction with editable 3D assets</h2>
-        </div>
-
-        <div class="showcase">
-          <aside class="case-list" aria-label="Result cases">
-            <button class="case-button is-active" data-case="0" type="button">
-              <img src="assets/cases/case-01/input.jpg" alt="" />
-              <span>Case 01</span>
+        <div class="asset-showcase">
+          <aside class="asset-grid" aria-label="Supplement model cases">
+            <button class="asset-button is-active" data-case="0" type="button">
+              <img src="assets/supplement/models/model-03/input.jpg" alt="" />
+              <span>Model 03</span>
             </button>
-            <button class="case-button" data-case="1" type="button">
-              <img src="assets/cases/case-02/input.jpg" alt="" />
-              <span>Case 02</span>
+            <button class="asset-button" data-case="1" type="button">
+              <img src="assets/supplement/models/model-04/input.jpg" alt="" />
+              <span>Model 04</span>
             </button>
-            <button class="case-button" data-case="2" type="button">
-              <img src="assets/cases/case-03/input.jpg" alt="" />
-              <span>Case 03</span>
+            <button class="asset-button" data-case="2" type="button">
+              <img src="assets/supplement/models/model-07/input.jpg" alt="" />
+              <span>Model 07</span>
+            </button>
+            <button class="asset-button" data-case="3" type="button">
+              <img src="assets/supplement/models/model-09/input.jpg" alt="" />
+              <span>Model 09</span>
+            </button>
+            <button class="asset-button" data-case="4" type="button">
+              <img src="assets/supplement/models/model-10/input.jpg" alt="" />
+              <span>Model 10</span>
+            </button>
+            <button class="asset-button" data-case="5" type="button">
+              <img src="assets/supplement/models/model-13/input.jpg" alt="" />
+              <span>Model 13</span>
+            </button>
+            <button class="asset-button" data-case="6" type="button">
+              <img src="assets/supplement/models/model-16/input.jpg" alt="" />
+              <span>Model 16</span>
+            </button>
+            <button class="asset-button" data-case="7" type="button">
+              <img src="assets/supplement/models/model-18/input.jpg" alt="" />
+              <span>Model 18</span>
             </button>
           </aside>
 
-          <div class="viewer-panel">
+          <div class="asset-viewer">
             <model-viewer
-              id="resultModel"
+              id="assetModel"
               class="result-model"
-              src="assets/cases/case-01/model.glb"
-              poster="assets/cases/case-01/input.jpg"
+              src="assets/supplement/models/model-03/full.glb"
+              poster="assets/supplement/models/model-03/input.jpg"
               camera-controls
               auto-rotate
               rotation-per-second="14deg"
-              shadow-intensity="0.6"
+              shadow-intensity="0.7"
               exposure="0.95"
               camera-orbit="0deg 74deg 1.9m"
-              alt="Selected MARCUS-Avatar 3D reconstruction"
+              alt="Selected supplement GLB avatar"
             >
-              <img id="modelFallback" class="model-fallback" src="assets/cases/case-01/input.jpg" alt="Selected avatar input" />
+              <img id="assetFallback" class="model-fallback" src="assets/supplement/models/model-03/input.jpg" alt="Selected input portrait" />
             </model-viewer>
+            <div class="mode-toggle" aria-label="Selected model display mode">
+              <button class="variant-button is-active" data-target="asset" data-variant="full" type="button">Full material</button>
+              <button class="variant-button" data-target="asset" data-variant="geometry" type="button">Gray geometry</button>
+            </div>
           </div>
 
-          <div class="result-stack" aria-label="Selected case maps">
-            <figure>
-              <img id="inputImage" src="assets/cases/case-01/input.jpg" alt="Input portrait" />
-              <figcaption>Input</figcaption>
-            </figure>
-            <figure>
-              <img id="delightImage" src="assets/cases/case-01/delight.png" alt="Delighted UV texture" />
-              <figcaption>Delighted UV</figcaption>
-            </figure>
-          </div>
-        </div>
-      </section>
-
-      <section class="materials section-band reveal" id="materials">
-        <div class="section-heading compact">
-          <p class="eyebrow">PBR Intrinsics</p>
-          <h2>Material maps stay pixel-aligned across branches</h2>
-        </div>
-        <div class="material-grid" aria-label="PBR material maps">
-          <figure>
-            <img id="mapAlbedo" src="assets/cases/case-01/albedo.png" alt="Albedo map" />
-            <figcaption>Albedo</figcaption>
-          </figure>
-          <figure>
-            <img id="mapNormal" src="assets/cases/case-01/normal.png" alt="Normal map" />
-            <figcaption>Normal</figcaption>
-          </figure>
-          <figure>
-            <img id="mapRoughness" src="assets/cases/case-01/roughness.png" alt="Roughness map" />
-            <figcaption>Roughness</figcaption>
-          </figure>
-          <figure>
-            <img id="mapSpecular" src="assets/cases/case-01/specular.png" alt="Specular map" />
-            <figcaption>Specular</figcaption>
-          </figure>
-          <figure>
-            <img id="mapDisplacement" src="assets/cases/case-01/displacement.png" alt="Displacement map" />
-            <figcaption>Displacement</figcaption>
+          <figure class="input-panel">
+            <img id="assetInput" src="assets/supplement/models/model-03/input.jpg" alt="Selected input portrait" />
+            <figcaption id="assetCaption">Input image for Model 03</figcaption>
           </figure>
         </div>
       </section>
 
-      <section class="media-section section-band reveal">
+      <section class="media-section section-band reveal" id="method">
         <div class="section-heading">
-          <p class="eyebrow">Generalization</p>
-          <h2>Recovering detail while preserving render-ready structure</h2>
+          <div>
+            <p class="eyebrow">Pipeline</p>
+            <h2>Cascaded priors in UV space</h2>
+          </div>
           <p>
-            The reconstructed assets preserve facial detail in UV space and support downstream relighting,
-            inspection, and material editing.
+            The paper pipeline combines geometry alignment, UV-space texture completion, light homogenization,
+            intrinsic material generation, and UV-space differentiable shading.
           </p>
         </div>
-        <div class="figure-pair">
+        <figure class="wide-figure">
+          <img src="assets/paper/pipeline.png" alt="MARCUS-Avatar paper pipeline figure" />
+        </figure>
+      </section>
+
+      <section class="media-section section-band reveal" id="figures">
+        <div class="section-heading compact">
+          <p class="eyebrow">Paper Figures</p>
+          <h2>Selected figures from the paper source</h2>
+        </div>
+        <div class="paper-figures">
           <figure>
-            <img src="assets/figures/detail-pipeline.jpg" alt="Detail reconstruction examples" />
+            <img src="assets/paper/teaser.png" alt="Paper teaser figure" />
+            <figcaption>Teaser</figcaption>
           </figure>
           <figure>
-            <img src="assets/figures/relighting.jpg" alt="Relighting and manipulation examples" />
+            <img src="assets/paper/comparetex.png" alt="Texture comparison figure" />
+            <figcaption>Texture comparison</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/paper/compareobj.png" alt="Geometry comparison figure" />
+            <figcaption>Geometry comparison</figcaption>
           </figure>
         </div>
       </section>
 
       <section class="citation section-band reveal" id="citation">
         <div class="section-heading compact">
-          <p class="eyebrow">Citation</p>
-          <h2>Project resources</h2>
+          <p class="eyebrow">Resources</p>
+          <h2>Links and citation</h2>
         </div>
         <div class="resource-grid">
           <a href="#">Paper</a>
