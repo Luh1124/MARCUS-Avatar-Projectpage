@@ -99,6 +99,40 @@ document.querySelectorAll("model-viewer").forEach((viewer) => {
   viewer.addEventListener("error", () => markViewerError(viewer));
 });
 
+document.querySelectorAll("[data-tri-compare]").forEach((compare) => {
+  const first = compare.querySelector('.compare-range[data-split="a"]');
+  const second = compare.querySelector('.compare-range[data-split="b"]');
+  if (!first || !second) return;
+
+  const minGap = 10;
+  const applySplits = (changed) => {
+    let splitA = Number(first.value);
+    let splitB = Number(second.value);
+
+    if (splitB - splitA < minGap) {
+      if (changed === second) {
+        splitA = splitB - minGap;
+      } else {
+        splitB = splitA + minGap;
+      }
+    }
+
+    splitA = Math.max(Number(first.min), Math.min(splitA, Number(first.max)));
+    splitB = Math.max(Number(second.min), Math.min(splitB, Number(second.max)));
+
+    first.value = String(splitA);
+    second.value = String(splitB);
+    first.setAttribute("aria-valuetext", `${splitA}%`);
+    second.setAttribute("aria-valuetext", `${splitB}%`);
+    compare.style.setProperty("--split-a", `${splitA}%`);
+    compare.style.setProperty("--split-b", `${splitB}%`);
+  };
+
+  first.addEventListener("input", () => applySplits(first));
+  second.addEventListener("input", () => applySplits(second));
+  applySplits();
+});
+
 const reveals = document.querySelectorAll(".reveal");
 if ("IntersectionObserver" in window) {
   const observer = new IntersectionObserver(

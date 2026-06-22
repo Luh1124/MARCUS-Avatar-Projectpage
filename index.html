@@ -75,25 +75,40 @@
           </dl>
         </div>
 
-        <div class="hero-stage reveal" aria-label="Interactive avatar preview">
-          <model-viewer
-            id="heroModel"
-            class="hero-model"
-            src="assets/supplement/models/model-03/full.glb"
-            camera-controls
-            loading="eager"
-            reveal="auto"
-            shadow-intensity="0.7"
-            exposure="0.95"
-            camera-orbit="0deg 80deg 6m"
-            field-of-view="28deg"
-            alt="Interactive MARCUS-Avatar supplement model"
-          ></model-viewer>
-          <p class="viewer-warning">3D viewer or model failed to load. Please check WebGL support and GLB access.</p>
-          <div class="mode-toggle" aria-label="Hero model display mode">
-            <button class="variant-button is-active" data-target="hero" data-variant="full" type="button">Full material</button>
-            <button class="variant-button" data-target="hero" data-variant="geometry" type="button">Gray geometry</button>
-          </div>
+        <div class="hero-stage reveal" aria-label="MARCUS-Avatar layered comparison">
+          <figure class="tri-compare" data-tri-compare style="--split-a: 34%; --split-b: 68%">
+            <div class="compare-frame">
+              <img
+                class="compare-layer compare-input"
+                src="assets/cover/21220/hr_align_img.png"
+                alt="Aligned input portrait"
+              />
+              <img class="compare-layer compare-geometry" src="assets/cover/21220/geo.png" alt="Recovered geometry" />
+              <img
+                class="compare-layer compare-render"
+                src="assets/cover/21220/r00.png"
+                alt="Relit material render"
+              />
+              <span class="compare-divider compare-divider-a" aria-hidden="true"></span>
+              <span class="compare-divider compare-divider-b" aria-hidden="true"></span>
+              <div class="compare-labels" aria-hidden="true">
+                <span>Input</span>
+                <span>Geometry</span>
+                <span>Render</span>
+              </div>
+            </div>
+            <figcaption>Aligned portrait, recovered geometry, and relit material render from the same identity.</figcaption>
+            <div class="compare-controls" aria-label="Layer split controls">
+              <label>
+                <span>Input / Geometry</span>
+                <input class="compare-range" data-split="a" type="range" min="12" max="78" value="34" />
+              </label>
+              <label>
+                <span>Geometry / Render</span>
+                <input class="compare-range" data-split="b" type="range" min="22" max="90" value="68" />
+              </label>
+            </div>
+          </figure>
         </div>
       </section>
 

@@ -1,3 +1,9 @@
 __pycache__/
 *.pyc
 .DS_Store
+assets/cover/**
+!assets/cover/
+!assets/cover/21220/
+!assets/cover/21220/hr_align_img.png
+!assets/cover/21220/geo.png
+!assets/cover/21220/r00.png
