@@ -16,9 +16,10 @@ const variantFiles = {
 };
 
 const coverCases = [
-  { label: "Case 01", root: "assets/cover/21220" },
-  { label: "Case 02", root: "assets/cover/zakeboge" },
-  { label: "Case 03", root: "assets/cover/res_1768932471" },
+  { label: "Case 01", root: "assets/cover/21220", render: "r00.png" },
+  { label: "Case 02", root: "assets/cover/zakeboge", render: "r00.png" },
+  { label: "Case 03", root: "assets/cover/res_1768932471", render: "r00.png" },
+  { label: "Case 04", root: "assets/cover/res_1768655527", render: "render.png" },
 ];
 
 let activeCaseIndex = 0;
@@ -168,7 +169,7 @@ document.querySelectorAll("[data-tri-compare]").forEach((compare) => {
 
     inputLayer.src = `${item.root}/hr_align_img.png`;
     geometryLayer.src = `${item.root}/geo.png`;
-    renderLayer.src = `${item.root}/r00.png`;
+    renderLayer.src = `${item.root}/${item.render}`;
     inputLayer.alt = `${item.label} aligned input portrait`;
     geometryLayer.alt = `${item.label} recovered geometry`;
     renderLayer.alt = `${item.label} relit material render`;
