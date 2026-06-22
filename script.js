@@ -42,6 +42,10 @@ function modelPath(item, variant) {
   return `${item.root}/${variantFiles[variant]}`;
 }
 
+function previewPath(item) {
+  return `${item.root}/render.png`;
+}
+
 function setModel(target, caseIndex = activeCaseIndex) {
   const item = cases[caseIndex];
   const variant = activeVariants[target] || "full";
@@ -50,7 +54,7 @@ function setModel(target, caseIndex = activeCaseIndex) {
 
   markViewerLoading(viewer);
   viewer.setAttribute("src", modelPath(item, variant));
-  viewer.setAttribute("poster", `${item.root}/input.jpg`);
+  viewer.setAttribute("poster", previewPath(item));
 }
 
 function setCase(index) {
@@ -63,7 +67,7 @@ function setCase(index) {
   const fallback = document.querySelector("#assetFallback");
   const input = document.querySelector("#assetInput");
   const caption = document.querySelector("#assetCaption");
-  if (fallback) fallback.src = `${item.root}/input.jpg`;
+  if (fallback) fallback.src = previewPath(item);
   if (input) input.src = `${item.root}/input.jpg`;
   if (caption) caption.textContent = `Input image for ${item.label}`;
 
