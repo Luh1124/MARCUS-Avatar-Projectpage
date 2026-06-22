@@ -76,7 +76,7 @@
         </div>
 
         <div class="hero-stage reveal" aria-label="MARCUS-Avatar layered comparison">
-          <figure class="tri-compare" data-tri-compare style="--split-a: 34%; --split-b: 68%">
+          <figure class="tri-compare" data-tri-compare style="--split-x: 50%; --split-y: 47%">
             <div class="compare-frame">
               <img
                 class="compare-layer compare-input"
@@ -89,25 +89,22 @@
                 src="assets/cover/21220/r00.png"
                 alt="Relit material render"
               />
-              <span class="compare-divider compare-divider-a" aria-hidden="true"></span>
-              <span class="compare-divider compare-divider-b" aria-hidden="true"></span>
+              <span class="compare-divider compare-divider-y" aria-hidden="true"></span>
+              <span class="compare-divider compare-divider-x" aria-hidden="true"></span>
+              <button
+                class="compare-handle"
+                data-control="corner"
+                type="button"
+                aria-label="Move comparison split point"
+                aria-valuetext="X 50%, Y 47%"
+              ></button>
               <div class="compare-labels" aria-hidden="true">
-                <span>Input</span>
-                <span>Geometry</span>
-                <span>Render</span>
+                <span class="compare-label-input">Input</span>
+                <span class="compare-label-geometry">Geometry</span>
+                <span class="compare-label-render">Render</span>
               </div>
             </div>
             <figcaption>Aligned portrait, recovered geometry, and relit material render from the same identity.</figcaption>
-            <div class="compare-controls" aria-label="Layer split controls">
-              <label>
-                <span>Input / Geometry</span>
-                <input class="compare-range" data-split="a" type="range" min="12" max="78" value="34" />
-              </label>
-              <label>
-                <span>Geometry / Render</span>
-                <input class="compare-range" data-split="b" type="range" min="22" max="90" value="68" />
-              </label>
-            </div>
           </figure>
         </div>
       </section>

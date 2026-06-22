@@ -100,37 +100,62 @@ document.querySelectorAll("model-viewer").forEach((viewer) => {
 });
 
 document.querySelectorAll("[data-tri-compare]").forEach((compare) => {
-  const first = compare.querySelector('.compare-range[data-split="a"]');
-  const second = compare.querySelector('.compare-range[data-split="b"]');
-  if (!first || !second) return;
+  const frame = compare.querySelector(".compare-frame");
+  const handle = compare.querySelector(".compare-handle");
+  if (!frame || !handle) return;
 
-  const minGap = 10;
-  const applySplits = (changed) => {
-    let splitA = Number(first.value);
-    let splitB = Number(second.value);
-
-    if (splitB - splitA < minGap) {
-      if (changed === second) {
-        splitA = splitB - minGap;
-      } else {
-        splitB = splitA + minGap;
-      }
-    }
-
-    splitA = Math.max(Number(first.min), Math.min(splitA, Number(first.max)));
-    splitB = Math.max(Number(second.min), Math.min(splitB, Number(second.max)));
-
-    first.value = String(splitA);
-    second.value = String(splitB);
-    first.setAttribute("aria-valuetext", `${splitA}%`);
-    second.setAttribute("aria-valuetext", `${splitB}%`);
-    compare.style.setProperty("--split-a", `${splitA}%`);
-    compare.style.setProperty("--split-b", `${splitB}%`);
+  const state = {
+    x: 50,
+    y: 47,
   };
 
-  first.addEventListener("input", () => applySplits(first));
-  second.addEventListener("input", () => applySplits(second));
-  applySplits();
+  const clamp = (value) => Math.max(0, Math.min(value, 100));
+
+  const setSplit = (x, y) => {
+    state.x = clamp(x);
+    state.y = clamp(y);
+    compare.style.setProperty("--split-x", `${state.x}%`);
+    compare.style.setProperty("--split-y", `${state.y}%`);
+    handle.setAttribute("aria-valuetext", `X ${Math.round(state.x)}%, Y ${Math.round(state.y)}%`);
+  };
+
+  const updateFromPointer = (event) => {
+    const rect = frame.getBoundingClientRect();
+    setSplit(((event.clientX - rect.left) / rect.width) * 100, ((event.clientY - rect.top) / rect.height) * 100);
+  };
+
+  const startDrag = (event) => {
+    event.preventDefault();
+    handle.focus({ preventScroll: true });
+    updateFromPointer(event);
+
+    const onMove = (moveEvent) => updateFromPointer(moveEvent);
+    const onEnd = () => {
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onEnd);
+      window.removeEventListener("pointercancel", onEnd);
+    };
+
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerup", onEnd);
+    window.addEventListener("pointercancel", onEnd);
+  };
+
+  const keyboardAdjust = (event) => {
+    const keys = ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"];
+    if (!keys.includes(event.key)) return;
+
+    event.preventDefault();
+    const step = event.shiftKey ? 5 : 2;
+    const nextX = state.x + (event.key === "ArrowRight" ? step : event.key === "ArrowLeft" ? -step : 0);
+    const nextY = state.y + (event.key === "ArrowDown" ? step : event.key === "ArrowUp" ? -step : 0);
+    setSplit(nextX, nextY);
+  };
+
+  frame.addEventListener("pointerdown", startDrag);
+  handle.addEventListener("keydown", keyboardAdjust);
+
+  setSplit(state.x, state.y);
 });
 
 const reveals = document.querySelectorAll(".reveal");

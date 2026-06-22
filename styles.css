@@ -241,6 +241,7 @@ p {
     radial-gradient(circle at 52% 28%, rgba(255, 255, 255, 0.8), rgba(232, 243, 238, 0.44) 42%, rgba(20, 44, 46, 0.08) 80%),
     #eff4f1;
   box-shadow: var(--shadow);
+  cursor: pointer;
   overflow: hidden;
 }
 
@@ -254,70 +255,123 @@ p {
 
 .compare-input {
   z-index: 1;
+  clip-path: polygon(0 0, 100% 0, 100% var(--split-y), 0 var(--split-y));
 }
 
 .compare-geometry {
   z-index: 2;
-  clip-path: polygon(var(--split-a) 0, var(--split-b) 0, var(--split-b) 100%, var(--split-a) 100%);
+  clip-path: polygon(0 var(--split-y), var(--split-x) var(--split-y), var(--split-x) 100%, 0 100%);
 }
 
 .compare-render {
   z-index: 3;
-  clip-path: polygon(var(--split-b) 0, 100% 0, 100% 100%, var(--split-b) 100%);
+  clip-path: polygon(var(--split-x) var(--split-y), 100% var(--split-y), 100% 100%, var(--split-x) 100%);
 }
 
 .compare-divider {
   position: absolute;
-  top: 0;
-  bottom: 0;
   z-index: 5;
-  width: 2px;
   background: rgba(255, 255, 255, 0.86);
   box-shadow: 0 0 0 1px rgba(20, 36, 38, 0.16), 0 0 16px rgba(20, 36, 38, 0.18);
+}
+
+.compare-divider-y {
+  top: var(--split-y);
+  right: 0;
+  left: 0;
+  height: 2px;
+  transform: translateY(-1px);
+}
+
+.compare-divider-x {
+  top: var(--split-y);
+  bottom: 0;
+  left: var(--split-x);
+  width: 2px;
   transform: translateX(-1px);
 }
 
-.compare-divider::after {
+.compare-handle {
+  position: absolute;
+  top: var(--split-y);
+  left: var(--split-x);
+  z-index: 7;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(20, 36, 38, 0.18);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: var(--shadow);
+  cursor: grab;
+  touch-action: none;
+  transform: translate(-50%, -50%);
+}
+
+.compare-handle:active {
+  cursor: grabbing;
+}
+
+.compare-handle:focus-visible {
+  outline: 3px solid rgba(14, 127, 122, 0.38);
+  outline-offset: 3px;
+}
+
+.compare-handle::before,
+.compare-handle::after {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 16px;
-  height: 40px;
-  border: 1px solid rgba(20, 36, 38, 0.18);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.82);
-  box-shadow: var(--shadow);
+  background: rgba(20, 36, 38, 0.44);
   content: "";
   transform: translate(-50%, -50%);
 }
 
-.compare-divider-a {
-  left: var(--split-a);
+.compare-handle::before {
+  width: 20px;
+  height: 2px;
 }
 
-.compare-divider-b {
-  left: var(--split-b);
+.compare-handle::after {
+  width: 2px;
+  height: 20px;
 }
 
 .compare-labels {
   position: absolute;
-  inset: auto 0 0;
+  inset: 0;
   z-index: 6;
-  display: grid;
-  grid-template-columns: var(--split-a) calc(var(--split-b) - var(--split-a)) calc(100% - var(--split-b));
-  gap: 0;
   pointer-events: none;
 }
 
 .compare-labels span {
-  min-width: 0;
-  padding: 0.72rem 0.5rem;
-  background: linear-gradient(180deg, rgba(20, 36, 38, 0), rgba(20, 36, 38, 0.58));
+  position: absolute;
+  padding: 0.38rem 0.55rem;
+  border-radius: 6px;
+  background: rgba(20, 36, 38, 0.68);
   color: #fff;
   font-size: 0.72rem;
   font-weight: 850;
-  text-align: center;
+  line-height: 1;
   text-transform: uppercase;
+}
+
+.compare-label-input {
+  top: 0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.compare-label-geometry {
+  bottom: 0.75rem;
+  left: clamp(2.5rem, calc(var(--split-x) / 2), calc(100% - 2.5rem));
+  transform: translateX(-50%);
+}
+
+.compare-label-render {
+  right: clamp(2.5rem, calc((100% - var(--split-x)) / 2), calc(100% - 2.5rem));
+  bottom: 0.75rem;
+  transform: translateX(50%);
 }
 
 .tri-compare figcaption {
@@ -325,33 +379,6 @@ p {
   color: var(--muted);
   font-size: 0.9rem;
   line-height: 1.55;
-}
-
-.compare-controls {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.85rem;
-}
-
-.compare-controls label {
-  display: grid;
-  min-width: 0;
-  gap: 0.55rem;
-  padding: 0.9rem;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.74);
-}
-
-.compare-controls span {
-  color: var(--ink);
-  font-size: 0.82rem;
-  font-weight: 800;
-}
-
-.compare-range {
-  width: 100%;
-  accent-color: var(--teal);
 }
 
 .hero-model,
