@@ -1,6 +1,7 @@
 const cases = [
   { label: "Model 03", root: "assets/supplement/models/model-03" },
   { label: "Model 04", root: "assets/supplement/models/model-04" },
+  { label: "Model 06", root: "assets/supplement/models/model-06" },
   { label: "Model 07", root: "assets/supplement/models/model-07" },
   { label: "Model 09", root: "assets/supplement/models/model-09" },
   { label: "Model 10", root: "assets/supplement/models/model-10" },
