@@ -679,27 +679,6 @@ figcaption {
   width: 100%;
 }
 
-.resource-grid {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 0.7rem;
-  margin: 1.5rem 0;
-}
-
-.resource-grid a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 3.1rem;
-  padding: 0.8rem;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--surface);
-  color: var(--deep);
-  font-size: 0.92rem;
-  font-weight: 750;
-}
-
 .bibtex {
   overflow: auto;
   margin: 0;
@@ -830,24 +809,6 @@ code {
   object-fit: cover;
 }
 
-.paper-figures {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-}
-
-.paper-figures figure {
-  overflow: hidden;
-  margin: 0;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--surface);
-}
-
-.paper-figures img {
-  width: 100%;
-}
-
 .site-footer {
   display: flex;
   justify-content: space-between;
@@ -941,9 +902,6 @@ code {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .resource-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }
 
 @media (max-width: 680px) {
@@ -968,7 +926,6 @@ code {
   .hero-stats,
   .intro-grid,
   .material-grid,
-  .resource-grid,
   .result-stack {
     grid-template-columns: 1fr;
   }
