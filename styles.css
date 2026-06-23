@@ -146,6 +146,66 @@ p {
   line-height: 1.7;
 }
 
+.author-section {
+  margin-top: 1rem;
+  padding: 1rem 1.15rem;
+  border: 1px solid rgba(217, 222, 223, 0.86);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.68);
+}
+
+.author-block {
+  display: grid;
+  gap: 0.5rem;
+  max-width: 100%;
+}
+
+.author-list,
+.affiliation-list,
+.author-notes {
+  margin: 0;
+}
+
+.author-list,
+.affiliation-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 0.7rem;
+}
+
+.author-list {
+  color: var(--deep);
+  font-size: 0.95rem;
+  font-weight: 760;
+  line-height: 1.5;
+}
+
+.author-list span {
+  white-space: nowrap;
+}
+
+.author-list sup,
+.affiliation-list sup {
+  color: var(--teal);
+  font-size: 0.68em;
+  font-weight: 850;
+  line-height: 0;
+}
+
+.affiliation-list {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.author-notes {
+  color: var(--soft);
+  font-size: 0.76rem;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
 .hero-lede {
   max-width: 660px;
   margin: 1.4rem 0 0;
