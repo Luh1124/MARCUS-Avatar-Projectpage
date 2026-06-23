@@ -132,8 +132,9 @@ h2 {
 
 h1 {
   max-width: 760px;
-  font-size: clamp(2.55rem, 6vw, 4.9rem);
-  line-height: 0.98;
+  font-size: clamp(2.15rem, 4.7vw, 3.85rem);
+  line-height: 1.03;
+  overflow-wrap: break-word;
 }
 
 h2 {
@@ -146,18 +147,59 @@ p {
   line-height: 1.7;
 }
 
-.author-section {
-  margin-top: 1rem;
-  padding: 1rem 1.15rem;
-  border: 1px solid rgba(217, 222, 223, 0.86);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.68);
+.author-details {
+  max-width: 700px;
+  margin: 1rem 0 0;
+  border-top: 1px solid rgba(217, 222, 223, 0.9);
+  border-bottom: 1px solid rgba(217, 222, 223, 0.9);
 }
 
-.author-block {
+.author-details summary {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-height: 2.6rem;
+  color: var(--deep);
+  cursor: pointer;
+  list-style: none;
+}
+
+.author-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.author-details summary::after {
+  width: 0.46rem;
+  height: 0.46rem;
+  margin-left: auto;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  content: "";
+  transform: rotate(45deg);
+  transition: transform 180ms ease;
+}
+
+.author-details[open] summary::after {
+  transform: rotate(225deg);
+}
+
+.author-details summary span {
+  font-size: 0.9rem;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.author-details summary small {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.author-panel {
   display: grid;
   gap: 0.5rem;
-  max-width: 100%;
+  padding: 0.15rem 0 0.8rem;
 }
 
 .author-list,
@@ -1038,11 +1080,25 @@ code {
   }
 
   h1 {
-    font-size: clamp(2.35rem, 14vw, 4rem);
+    font-size: clamp(2.05rem, 10vw, 3rem);
   }
 
   .hero-lede {
     font-size: 1rem;
+  }
+
+  .author-details summary {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 0.7rem 0;
+  }
+
+  .author-details summary::after {
+    margin-top: 0.32rem;
+  }
+
+  .author-details summary small {
+    width: 100%;
   }
 
   .hero-stats,
