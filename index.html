@@ -38,6 +38,7 @@
       <nav class="nav-links" aria-label="Sections">
         <a href="#assets">3D Assets</a>
         <a href="#method">Method</a>
+        <a href="#evidence">Evidence</a>
         <a href="#citation">Citation</a>
       </nav>
     </header>
@@ -52,7 +53,7 @@
             physically meaningful intrinsic materials.
           </p>
           <div class="action-row" aria-label="Project links">
-            <a class="action primary" href="#">Paper</a>
+            <a class="action primary" href="#">PDF</a>
             <a class="action" href="https://github.com/Luh1124/MARCUS-Avatar">Code</a>
             <a class="action" href="#">Dataset</a>
             <a class="action" href="#">HF Weights</a>
@@ -130,24 +131,26 @@
       <section class="intro-grid section-band reveal" aria-label="Method highlights">
         <article>
           <span class="kicker">01</span>
-          <h2>Supplement assets, not screenshots</h2>
+          <h2>Data-efficient PBR learning</h2>
           <p>
-            The gallery below visualizes GLB exports converted directly from the supplementary Blender files.
+            High-quality relightable avatars are learned from fewer than 100 real 3D scans with a Blender-augmented
+            synthetic data pipeline.
           </p>
         </article>
         <article>
           <span class="kicker">02</span>
-          <h2>Two complementary model views</h2>
+          <h2>Cascaded diffusion priors</h2>
           <p>
-            Full material mode preserves the exported PBR-style appearance, while gray geometry mode removes albedo
-            color to reveal surface detail.
+            A unified diffusion backbone uses task-specific LoRA adapters for UV texture inpainting, delighting, and
+            intrinsic PBR material estimation.
           </p>
         </article>
         <article>
           <span class="kicker">03</span>
-          <h2>Scripted and reproducible</h2>
+          <h2>Physically coupled materials</h2>
           <p>
-            A Blender batch script in this repository regenerates these web assets from the original supplement folder.
+            Cross-Intrinsic Attention and UV-space differentiable shading align albedo, normals, roughness, specular,
+            and displacement into coherent 4K assets.
           </p>
         </article>
       </section>
@@ -244,6 +247,29 @@
         <figure class="wide-figure">
           <img src="assets/paper/pipeline.png" alt="MARCUS-Avatar paper pipeline figure" />
         </figure>
+      </section>
+
+      <section class="media-section section-band reveal" id="evidence">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Evidence</p>
+            <h2>What the priors improve</h2>
+          </div>
+          <p>
+            These qualitative studies show the two places where the method is most visible: geometry preserves facial
+            detail, while UV diffusion removes occlusion and illumination artifacts before material decomposition.
+          </p>
+        </div>
+        <div class="evidence-stack">
+          <figure class="wide-figure">
+            <img src="assets/paper/rebuttal-r1.png" alt="Geometry detail comparison against HiFace and 3DDFA-V3" />
+            <figcaption>Geometry detail comparison against HiFace and 3DDFA-V3.</figcaption>
+          </figure>
+          <figure class="wide-figure">
+            <img src="assets/paper/rebuttal-r3.png" alt="Texture completion and light homogenization comparison" />
+            <figcaption>Texture completion and light homogenization comparison against UV-IDM, HRN, and FFHQ-UV.</figcaption>
+          </figure>
+        </div>
       </section>
 
       <section class="citation section-band reveal" id="citation">

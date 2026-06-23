@@ -679,6 +679,11 @@ figcaption {
   width: 100%;
 }
 
+.evidence-stack {
+  display: grid;
+  gap: 1rem;
+}
+
 .bibtex {
   overflow: auto;
   margin: 0;
