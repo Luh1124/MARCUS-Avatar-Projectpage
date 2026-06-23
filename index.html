@@ -173,11 +173,11 @@
 
       <section class="asset-section section-band reveal" id="assets">
         <div class="section-heading compact">
-          <p class="eyebrow">Supplementary 3D Assets</p>
-          <h2>Browse exported avatars from the Blender supplement</h2>
+          <p class="eyebrow">Generated 3D Assets</p>
+          <h2>Inspect generated avatars in full material and geometry views</h2>
           <p>
-            Each example is exported from <code>supp/exported_blender_files_1K/modelN.blend</code> with its matching
-            input image. Switch between the full material view and a gray geometry view for detail inspection.
+            Browse representative outputs reconstructed from single portraits. The full material view shows the
+            relightable avatar appearance, while the gray geometry view reveals fine facial structure.
           </p>
         </div>
 
@@ -263,6 +263,26 @@
         <figure class="wide-figure">
           <img src="assets/paper/pipeline.png" alt="MARCUS-Avatar paper pipeline figure" />
         </figure>
+        <details class="method-details">
+          <summary>
+            <span>Method details</span>
+            <small>Data generation, geometry estimation, and training pipeline</small>
+          </summary>
+          <div class="method-detail-grid">
+            <figure class="wide-figure">
+              <img src="assets/paper/method-datapipeline.png" alt="Synthetic data generation pipeline" />
+              <figcaption>Synthetic data generation for UV-space supervision.</figcaption>
+            </figure>
+            <figure class="wide-figure">
+              <img src="assets/paper/method-georecon.png" alt="Geometry estimation model" />
+              <figcaption>Geometry estimation with local image features and semantic priors.</figcaption>
+            </figure>
+            <figure class="wide-figure">
+              <img src="assets/paper/method-trainpipe.png" alt="Cascaded diffusion training pipeline" />
+              <figcaption>Cascaded diffusion training for inpainting, delighting, and PBR material estimation.</figcaption>
+            </figure>
+          </div>
+        </details>
       </section>
 
       <section class="media-section section-band reveal" id="evidence">
@@ -272,8 +292,8 @@
             <h2>What the priors improve</h2>
           </div>
           <p>
-            These qualitative studies show the two places where the method is most visible: geometry preserves facial
-            detail, while UV diffusion removes occlusion and illumination artifacts before material decomposition.
+            Complete material estimation enriches geometry through normal and displacement maps. UV diffusion
+            completes occluded textures and removes baked-in illumination while preserving high-frequency identity cues.
           </p>
         </div>
         <div class="evidence-stack">

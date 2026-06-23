@@ -679,6 +679,63 @@ figcaption {
   width: 100%;
 }
 
+.method-details {
+  margin-top: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.72);
+  overflow: hidden;
+}
+
+.method-details summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.1rem;
+  color: var(--deep);
+  cursor: pointer;
+  list-style: none;
+}
+
+.method-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.method-details summary::after {
+  width: 0.58rem;
+  height: 0.58rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  content: "";
+  transform: rotate(45deg);
+  transition: transform 180ms ease;
+}
+
+.method-details[open] summary {
+  border-bottom: 1px solid var(--line);
+}
+
+.method-details[open] summary::after {
+  transform: rotate(225deg);
+}
+
+.method-details summary span {
+  font-weight: 850;
+}
+
+.method-details summary small {
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 650;
+}
+
+.method-detail-grid {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+}
+
 .evidence-stack {
   display: grid;
   gap: 1rem;
@@ -959,6 +1016,19 @@ code {
 
   .compare-case span {
     font-size: 0.68rem;
+  }
+
+  .method-details summary {
+    align-items: flex-start;
+  }
+
+  .method-details summary span,
+  .method-details summary small {
+    display: block;
+  }
+
+  .method-details summary small {
+    margin-top: 0.25rem;
   }
 
   .case-list {
