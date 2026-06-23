@@ -1,13 +1,24 @@
 const cases = [
+  { label: "Model 01", root: "assets/supplement/models/model-01" },
+  { label: "Model 02", root: "assets/supplement/models/model-02" },
   { label: "Model 03", root: "assets/supplement/models/model-03" },
   { label: "Model 04", root: "assets/supplement/models/model-04" },
+  { label: "Model 05", root: "assets/supplement/models/model-05" },
   { label: "Model 06", root: "assets/supplement/models/model-06" },
   { label: "Model 07", root: "assets/supplement/models/model-07" },
+  { label: "Model 08", root: "assets/supplement/models/model-08" },
   { label: "Model 09", root: "assets/supplement/models/model-09" },
   { label: "Model 10", root: "assets/supplement/models/model-10" },
+  { label: "Model 11", root: "assets/supplement/models/model-11" },
+  { label: "Model 12", root: "assets/supplement/models/model-12" },
   { label: "Model 13", root: "assets/supplement/models/model-13" },
+  { label: "Model 14", root: "assets/supplement/models/model-14" },
+  { label: "Model 15", root: "assets/supplement/models/model-15" },
   { label: "Model 16", root: "assets/supplement/models/model-16" },
+  { label: "Model 17", root: "assets/supplement/models/model-17" },
   { label: "Model 18", root: "assets/supplement/models/model-18" },
+  { label: "Model 19", root: "assets/supplement/models/model-19" },
+  { label: "Model 20", root: "assets/supplement/models/model-20" },
 ];
 
 const variantFiles = {
@@ -22,7 +33,7 @@ const coverCases = [
   { label: "Case 04", root: "assets/cover/res_1768655527", input: "hr_align_img.png", geometry: "geo_n.png", render: "r011_n.png" },
 ];
 
-let activeCaseIndex = 0;
+let activeCaseIndex = 2;
 const activeVariants = {
   hero: "full",
   asset: "full",
@@ -78,6 +89,31 @@ function setCase(index) {
   });
 }
 
+function createAssetButtons() {
+  const grid = document.querySelector(".asset-grid");
+  if (!grid) return;
+
+  grid.innerHTML = "";
+  cases.forEach((item, index) => {
+    const button = document.createElement("button");
+    button.className = `asset-button${index === activeCaseIndex ? " is-active" : ""}`;
+    button.dataset.case = String(index);
+    button.type = "button";
+    button.setAttribute("aria-pressed", String(index === activeCaseIndex));
+
+    const image = document.createElement("img");
+    image.src = `${item.root}/input.jpg`;
+    image.alt = "";
+
+    const label = document.createElement("span");
+    label.textContent = item.label;
+
+    button.append(image, label);
+    button.addEventListener("click", () => setCase(index));
+    grid.append(button);
+  });
+}
+
 function setVariant(target, variant) {
   if (!variantFiles[variant]) return;
   activeVariants[target] = variant;
@@ -90,10 +126,7 @@ function setVariant(target, variant) {
   });
 }
 
-document.querySelectorAll(".asset-button").forEach((button) => {
-  button.setAttribute("aria-pressed", button.classList.contains("is-active") ? "true" : "false");
-  button.addEventListener("click", () => setCase(Number(button.dataset.case)));
-});
+createAssetButtons();
 
 document.querySelectorAll(".variant-button").forEach((button) => {
   button.setAttribute("aria-pressed", button.classList.contains("is-active") ? "true" : "false");

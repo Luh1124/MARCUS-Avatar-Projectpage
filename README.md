@@ -16,7 +16,7 @@ Run the exporter with Blender:
 /Applications/Blender.app/Contents/MacOS/Blender --background --python scripts/export_blender_variants.py -- \
   --source /Users/hongli/Documents/paper/eccv2026/supp/exported_blender_files_1K \
   --output assets/supplement/models \
-  --models 3 4 7 9 10 13 16 18
+  --models 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
 ```
 
 For each selected `modelN.blend`, the script writes:
