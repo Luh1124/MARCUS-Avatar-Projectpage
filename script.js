@@ -19,7 +19,7 @@ const coverCases = [
   { label: "Case 01", root: "assets/cover/21220", input: "hr_align_img.png", geometry: "geo.png", render: "r00.png" },
   { label: "Case 02", root: "assets/cover/zakeboge", input: "hr_align_img.png", geometry: "geo_n.png", render: "r00_n.png" },
   { label: "Case 03", root: "assets/cover/res_1768932471", input: "hr_align_img.png", geometry: "geo.png", render: "r00.png" },
-  { label: "Case 04", root: "assets/cover/res_1768655527", input: "hr_align_img.png", geometry: "geo_n.png", render: "render.png" },
+  { label: "Case 04", root: "assets/cover/res_1768655527", input: "hr_align_img.png", geometry: "geo_n.png", render: "r011_n.png" },
 ];
 
 let activeCaseIndex = 0;
