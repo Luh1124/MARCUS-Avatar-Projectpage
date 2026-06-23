@@ -30,7 +30,7 @@ from pathlib import Path
 import bpy
 
 
-GRAY_BASE_COLOR = (0.58, 0.58, 0.56, 1.0)
+GRAY_BASE_COLOR = (0.4627450980392157, 0.4980392156862745, 0.5529411764705883, 1.0)
 KEEP_MATERIAL_INPUTS = {
     "Metallic",
     "Roughness",

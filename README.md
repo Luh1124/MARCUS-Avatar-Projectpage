@@ -26,3 +26,11 @@ For each selected `modelN.blend`, the script writes:
 - `input.jpg`: the matching input image from the supplement.
 
 `--split-materials` is available for future multi-material assets, but the current supplement models use a single face material, so the page defaults to full and gray geometry views.
+
+Post-process GLB metadata when needed:
+
+```bash
+python3 scripts/set_glb_normal_scale.py --scale -1 assets/supplement/models/model-10/full.glb
+python3 scripts/set_glb_base_color.py --color '#767F8DFF' assets/supplement/models/model-*/geometry_gray.glb
+python3 scripts/smooth_glb_normals.py assets/supplement/models/model-11/full.glb
+```
